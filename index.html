@@ -4,85 +4,217 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>संस्कृत उपपद विभक्ति प्रतियोगिता</title>
+<title>Sanskrit Quiz | AironeDeveloper</title>
+
 <style>
 *{box-sizing:border-box}
+
 body{
- margin:0;font-family:Georgia,"Noto Serif Devanagari",serif;
+ margin:0;
+ font-family:Georgia,"Noto Serif Devanagari",serif;
  background:linear-gradient(135deg,#fff3d6,#f5d6a1,#fff8e9);
- color:#432510;min-height:100vh;
+ color:#432510;
+ min-height:100vh;
 }
+
 header{
- text-align:center;padding:25px 15px;
+ text-align:center;
+ padding:25px 15px;
  background:linear-gradient(120deg,#7b260e,#bd5b18,#7b260e);
- color:white;border-bottom:5px solid #e6b94f;
+ color:white;
+ border-bottom:5px solid #e6b94f;
 }
+
+.brand{
+ display:inline-block;
+ color:white;
+ text-decoration:none;
+ font-family:Arial,sans-serif;
+ font-size:22px;
+ font-weight:900;
+ letter-spacing:2px;
+ margin-bottom:12px;
+}
+
+.brand span{color:#ffd36b}
+.brand:hover{opacity:.8}
+
 header h1{margin:5px;font-size:28px}
 header p{margin:7px}
-.container{max-width:850px;margin:25px auto;padding:15px}
+
+.container{
+ max-width:850px;
+ margin:25px auto;
+ padding:15px;
+}
+
 .card{
- background:#fffdf6;border:2px solid #d5a44a;
- border-radius:16px;padding:22px;margin-bottom:18px;
+ background:#fffdf6;
+ border:2px solid #d5a44a;
+ border-radius:16px;
+ padding:22px;
+ margin-bottom:18px;
  box-shadow:0 5px 15px #633a1b20;
 }
+
 h2{color:#873b13;margin-top:0}
+
 input,button{
- font-size:16px;padding:12px;border-radius:8px;
+ font-size:16px;
+ padding:12px;
+ border-radius:8px;
 }
-input{width:100%;border:1px solid #c89c58;margin:10px 0}
+
+input{
+ width:100%;
+ border:1px solid #c89c58;
+ margin:10px 0;
+}
+
 button{
- border:0;background:#8e3514;color:white;
- cursor:pointer;font-weight:bold;
+ border:0;
+ background:#8e3514;
+ color:white;
+ cursor:pointer;
+ font-weight:bold;
 }
+
 button:hover{background:#bd5b18}
 button:disabled{opacity:.5;cursor:not-allowed}
+
 .option{
- display:block;width:100%;text-align:left;
- background:#fff1d6;color:#542c13;
- border:1px solid #d7b16b;margin:10px 0;
+ display:block;
+ width:100%;
+ text-align:left;
+ background:#fff1d6;
+ color:#542c13;
+ border:1px solid #d7b16b;
+ margin:10px 0;
 }
-.option.selected{background:#f4d18b;border:2px solid #9b4817}
-.option.correct{background:#d5efcf;border:2px solid #398b39}
-.option.wrong{background:#f5cccc;border:2px solid #bd3434}
-.info{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+
+.option.selected{
+ background:#f4d18b;
+ border:2px solid #9b4817;
+}
+
+.info{
+ display:flex;
+ justify-content:space-between;
+ gap:10px;
+ flex-wrap:wrap;
+}
+
 #quiz,#result{display:none}
-.question{font-size:23px;line-height:1.8;margin:20px 0}
+
+.question{
+ font-size:23px;
+ line-height:1.8;
+ margin:20px 0;
+}
+
 .small{color:#76563b;font-size:14px}
-table{width:100%;border-collapse:collapse}
-th,td{padding:10px;border-bottom:1px solid #dfc99e;text-align:center}
+
+table{
+ width:100%;
+ border-collapse:collapse;
+}
+
+th,td{
+ padding:10px;
+ border-bottom:1px solid #dfc99e;
+ text-align:center;
+}
+
 th{background:#f3dfb7}
-footer{text-align:center;padding:20px;color:#76563b}
+
+footer{
+ text-align:center;
+ padding:25px 15px;
+ color:#76563b;
+ background:#f4e3c4;
+ border-top:3px solid #d5a44a;
+}
+
+footer h3{color:#873b13}
+
+footer a{
+ color:#873b13;
+ text-decoration:none;
+ font-weight:bold;
+}
+
+footer a:hover{text-decoration:underline}
+
+.company-logo{
+ font-family:Arial,sans-serif;
+ font-weight:900;
+ letter-spacing:2px;
+ font-size:20px;
+}
+
+.company-logo span{color:#bd5b18}
 </style>
 </head>
+
 <body>
+
 <header>
+ <a class="brand"
+    href="https://aironedeveloper.vercel.app"
+    target="_blank"
+    rel="noopener noreferrer">
+    AIRONE<span>DEVELOPER</span>
+ </a>
+
  <div style="font-size:35px">🪷 ॐ 🪷</div>
+
  <h1>संस्कृत उपपद विभक्ति प्रतियोगिता</h1>
  <p>पञ्चमी • षष्ठी • सप्तमी</p>
  <p>विद्या ददाति विनयम्</p>
 </header>
 
 <div class="container">
+
  <section class="card" id="login">
   <h2>प्रतियोगिता में आपका स्वागत है</h2>
+
   <p>अपना Roll Number दर्ज करें। प्रत्येक विद्यार्थी को एक अलग प्रश्न मिलेगा।</p>
+
   <label>Roll Number (1 से 41)</label>
-  <input id="roll" type="number" min="1" max="41" placeholder="अपना Roll Number लिखें">
+
+  <input
+   id="roll"
+   type="number"
+   min="1"
+   max="41"
+   placeholder="अपना Roll Number लिखें">
+
   <button onclick="startQuiz()">Start Quiz →</button>
-  <p class="small">प्रत्येक प्रश्न 1 अंक का है। सभी प्रश्न MCQ हैं।</p>
+
+  <p class="small">
+   प्रत्येक प्रश्न 1 अंक का है। सभी प्रश्न MCQ हैं।
+  </p>
  </section>
 
  <section class="card" id="quiz">
+
   <div class="info">
    <strong id="rollInfo"></strong>
    <strong>अंक: 1</strong>
   </div>
+
   <hr>
+
   <p id="questionNo" class="small"></p>
+
   <div class="question" id="questionText"></div>
+
   <div id="options"></div>
-  <button id="submitBtn" onclick="submitAnswer()" disabled>उत्तर जमा करें</button>
-  <p id="feedback"></p>
+
+  <button id="submitBtn" onclick="submitAnswer()" disabled>
+   उत्तर जमा करें
+  </button>
+
  </section>
 
  <section class="card" id="result">
@@ -93,139 +225,290 @@ footer{text-align:center;padding:20px;color:#76563b}
 
  <section class="card">
   <h2>🏆 Leaderboard</h2>
-  <p class="small">इस browser में जमा हुए परिणाम।</p>
+
+  <p class="small">
+   इस browser में जमा हुए परिणाम।
+  </p>
+
   <div style="overflow-x:auto">
    <table>
-    <thead><tr><th>स्थान</th><th>Roll No.</th><th>अंक</th></tr></thead>
+    <thead>
+     <tr>
+      <th>स्थान</th>
+      <th>Roll No.</th>
+      <th>अंक</th>
+     </tr>
+    </thead>
     <tbody id="leaderboard"></tbody>
    </table>
   </div>
  </section>
+
+ <section class="card" style="text-align:center">
+  <div class="company-logo">
+   AIRONE<span>DEVELOPER</span>
+  </div>
+
+  <p>Technology • Innovation • Development</p>
+
+  <p>
+   <a href="https://aironedeveloper.vercel.app"
+      target="_blank"
+      rel="noopener noreferrer">
+      Visit Official Website →
+   </a>
+  </p>
+ </section>
+
 </div>
-<footer>आयोजक: संस्कृत अध्ययन प्रतियोगिता</footer>
+
+<footer>
+
+ <h3>
+  Developed & Presented by
+  <a href="https://aironedeveloper.vercel.app"
+     target="_blank"
+     rel="noopener noreferrer">
+     AironeDeveloper
+  </a>
+ </h3>
+
+ <p><strong>Founder:</strong> Avighna Rahangdale</p>
+
+ <p><strong>Co-Founder:</strong> Yatharth Ukey</p>
+
+ <p><strong>Founded:</strong> 23 February 2026</p>
+
+ <p>
+  <a href="https://aironedeveloper.vercel.app"
+     target="_blank"
+     rel="noopener noreferrer">
+     aironedeveloper.vercel.app
+  </a>
+ </p>
+
+ <p>© 2026 AironeDeveloper. All Rights Reserved.</p>
+
+</footer>
 
 <script>
+
 const questions = [
+
  {q:"मानवः ______ बिभेति। (व्याघ्र)",o:["व्याघ्रात्","व्याघ्रेण","व्याघ्रस्य","व्याघ्रम्"],a:0},
+
  {q:"बालकः ______ स्निह्यति। (मातृ)",o:["मातरम्","मातुः","मातरि","मात्रा"],a:2},
+
  {q:"छात्रः ______ निपुणः अस्ति। (गणित)",o:["गणितस्य","गणिते","गणितात्","गणितम्"],a:1},
+
  {q:"सिंहः ______ बिभेति। (गज)",o:["गजेन","गजस्य","गजात्","गजे"],a:2},
+
  {q:"______ समीपे उद्यानम् अस्ति। (गृह)",o:["गृहम्","गृहस्य","गृहेण","गृहात्"],a:1},
+
  {q:"बालकः ______ कुशलः अस्ति। (लेखन)",o:["लेखनस्य","लेखनात्","लेखने","लेखनम्"],a:2},
+
  {q:"सः ______ विश्वासं करोति। (मित्र)",o:["मित्रे","मित्रात्","मित्रस्य","मित्रम्"],a:0},
+
  {q:"बालिका ______ स्निह्यति। (पितृ)",o:["पितुः","पितरि","पित्रा","पितरम्"],a:1},
+
  {q:"छात्रः ______ निपुणः अस्ति। (संगीत)",o:["संगीतात्","संगीतम्","संगीते","संगीतस्य"],a:2},
+
  {q:"जनाः ______ बिभ्यन्ति। (सर्प)",o:["सर्पेण","सर्पात्","सर्पस्य","सर्पे"],a:1},
+
  {q:"______ समीपे नदी प्रवहति। (ग्राम)",o:["ग्रामात्","ग्रामेण","ग्रामस्य","ग्रामम्"],a:2},
+
  {q:"बालकः ______ कुशलः अस्ति। (क्रीडा)",o:["क्रीडायाः","क्रीडायाम्","क्रीडया","क्रीडाम्"],a:1},
+
  {q:"माता ______ स्निह्यति। (पुत्र)",o:["पुत्रे","पुत्रात्","पुत्रस्य","पुत्रम्"],a:0},
+
  {q:"सैनिकः ______ बिभेति। (शत्रु)",o:["शत्रुणा","शत्रोः","शत्रौ","शत्रुम्"],a:1},
+
  {q:"सा ______ कुशला अस्ति। (नृत्य)",o:["नृत्यस्य","नृत्यात्","नृत्ये","नृत्यम्"],a:2},
+
  {q:"सः ______ विश्वासं करोति। (ईश्वर)",o:["ईश्वरे","ईश्वरात्","ईश्वरस्य","ईश्वरम्"],a:0},
+
  {q:"______ उपरि पक्षी अस्ति। (वृक्ष)",o:["वृक्षात्","वृक्षस्य","वृक्षेण","वृक्षम्"],a:1},
+
  {q:"सः ______ विरमति। (पाप)",o:["पापेन","पापस्य","पापात्","पापे"],a:2},
+
  {q:"बालिका ______ कुशला अस्ति। (चित्रकला)",o:["चित्रकलायाम्","चित्रकलया","चित्रकलायाः","चित्रकलाम्"],a:0},
+
  {q:"बालकः ______ स्निह्यति। (मित्र)",o:["मित्रस्य","मित्रात्","मित्रे","मित्रम्"],a:2},
+
  {q:"सः ______ बिभेति। (अग्नि)",o:["अग्निना","अग्नेः","अग्नौ","अग्निम्"],a:1},
+
  {q:"बालिका ______ कुशला अस्ति। (अभिनय)",o:["अभिनयस्य","अभिनयात्","अभिनये","अभिनयम्"],a:2},
+
  {q:"जनः ______ विश्वासं करोति। (सज्जन)",o:["सज्जने","सज्जनात्","सज्जनस्य","सज्जनम्"],a:0},
+
  {q:"सः ______ विरमति। (असत्य)",o:["असत्येन","असत्यात्","असत्यस्य","असत्ये"],a:1},
+
  {q:"छात्रः ______ कुशलः अस्ति। (वादन)",o:["वादनस्य","वादने","वादनात्","वादनम्"],a:1},
+
  {q:"माता ______ स्निह्यति। (कन्या)",o:["कन्यायाः","कन्यया","कन्यायाम्","कन्याम्"],a:2},
+
  {q:"सः ______ बिभेति। (चोर)",o:["चोरेण","चोरस्य","चोरात्","चोरे"],a:2},
+
  {q:"छात्रः ______ निपुणः अस्ति। (व्याकरण)",o:["व्याकरणे","व्याकरणात्","व्याकरणस्य","व्याकरणम्"],a:0},
+
  {q:"शिष्यः ______ विश्वसिति। (गुरु)",o:["गुरुणा","गुरौ","गुरोः","गुरुम्"],a:1},
+
  {q:"सः ______ विरमति। (दुष्टाचार)",o:["दुष्टाचारेण","दुष्टाचारस्य","दुष्टाचारात्","दुष्टाचारे"],a:2},
+
  {q:"सा ______ कुशला अस्ति। (गायन)",o:["गायनस्य","गायने","गायनात्","गायनम्"],a:1},
+
  {q:"बालकः ______ स्निह्यति। (भ्रातृ)",o:["भ्रातरम्","भ्रात्रा","भ्रातरि","भ्रातुः"],a:2},
+
  {q:"सः ______ बिभेति। (अन्धकार)",o:["अन्धकारे","अन्धकारस्य","अन्धकारात्","अन्धकारेण"],a:2},
+
  {q:"बालकः ______ कुशलः अस्ति। (लेखन)",o:["लेखने","लेखनात्","लेखनस्य","लेखनम्"],a:0},
+
  {q:"सः ______ विश्वासं करोति। (देव)",o:["देवात्","देवे","देवेन","देवस्य"],a:1},
+
  {q:"सः ______ विरमति। (दुष्कर्म)",o:["दुष्कर्मणा","दुष्कर्मणः","दुष्कर्मणि","दुष्कर्म"],a:1},
+
  {q:"बालिका ______ कुशला अस्ति। (नृत्य)",o:["नृत्ये","नृत्यस्य","नृत्यात्","नृत्यम्"],a:0},
+
  {q:"सः ______ बिभेति। (सिंह)",o:["सिंहेन","सिंहस्य","सिंहात्","सिंहे"],a:2},
+
  {q:"बालकः ______ स्निह्यति। (जननी)",o:["जनन्याम्","जनन्याः","जनन्या","जननीम्"],a:0},
+
  {q:"छात्रः ______ कुशलः अस्ति। (विज्ञान)",o:["विज्ञानस्य","विज्ञाने","विज्ञानात्","विज्ञानम्"],a:1}
+
 ];
 
-let selected = null;
-let currentRoll = 0;
+let selected=null;
+let currentRoll=0;
+
+function getScores(){
+ try{
+  return JSON.parse(localStorage.getItem("sanskritScores")||"[]");
+ }catch(e){
+  return [];
+ }
+}
 
 function startQuiz(){
- const roll = Number(document.getElementById("roll").value);
+
+ const roll=Number(document.getElementById("roll").value);
+
  if(!Number.isInteger(roll)||roll<1||roll>41){
   alert("कृपया 1 से 41 के बीच Roll Number दर्ज करें।");
   return;
  }
- const scores = getScores();
+
+ const scores=getScores();
+
  if(scores.some(x=>x.roll===roll)){
   alert("इस Roll Number का परिणाम पहले से जमा है।");
   return;
  }
+
  currentRoll=roll;
+
  document.getElementById("login").style.display="none";
  document.getElementById("quiz").style.display="block";
+
  document.getElementById("rollInfo").textContent="Roll Number: "+roll;
  document.getElementById("questionNo").textContent="प्रश्न संख्या: "+roll+" / 41";
+
  const q=questions[roll-1];
+
  document.getElementById("questionText").textContent=q.q;
+
  const area=document.getElementById("options");
  area.innerHTML="";
+
  q.o.forEach((option,i)=>{
+
   const btn=document.createElement("button");
+
   btn.className="option";
   btn.textContent=String.fromCharCode(65+i)+". "+option;
+
   btn.onclick=()=>{
+
    selected=i;
-   document.querySelectorAll(".option").forEach(b=>b.classList.remove("selected"));
+
+   document.querySelectorAll(".option").forEach(b=>{
+    b.classList.remove("selected");
+   });
+
    btn.classList.add("selected");
+
    document.getElementById("submitBtn").disabled=false;
   };
-  area.appendChild(btn);
- });
-}
 
-function getScores(){
- try{return JSON.parse(localStorage.getItem("sanskritScores")||"[]")}
- catch(e){return []}
+  area.appendChild(btn);
+
+ });
+
 }
 
 function submitAnswer(){
+
  if(selected===null)return;
+
  const q=questions[currentRoll-1];
  const correct=selected===q.a;
  const score=correct?1:0;
+
  const scores=getScores();
- scores.push({roll:currentRoll,score:score});
+
+ scores.push({
+  roll:currentRoll,
+  score:score
+ });
+
  localStorage.setItem("sanskritScores",JSON.stringify(scores));
+
  document.getElementById("quiz").style.display="none";
  document.getElementById("result").style.display="block";
+
  document.getElementById("resultText").textContent=
-  correct?"शाबाश! आपका उत्तर सही है। आपको 1 अंक मिला।":
-  "आपका उत्तर गलत है। सही उत्तर है: "+q.o[q.a]+". आपको 0 अंक मिले।";
+  correct
+  ?"शाबाश! आपका उत्तर सही है। आपको 1 अंक मिला।"
+  :"आपका उत्तर गलत है। सही उत्तर है: "+q.o[q.a]+". आपको 0 अंक मिले।";
+
  renderLeaderboard();
+
 }
 
 function renderLeaderboard(){
- const scores=getScores().sort((a,b)=>b.score-a.score||a.roll-b.roll);
+
+ const scores=getScores().sort(
+  (a,b)=>b.score-a.score||a.roll-b.roll
+ );
+
  const tbody=document.getElementById("leaderboard");
+
  tbody.innerHTML="";
+
  if(scores.length===0){
   tbody.innerHTML="<tr><td colspan='3'>अभी कोई परिणाम नहीं है।</td></tr>";
   return;
  }
+
  scores.forEach((s,i)=>{
+
   const tr=document.createElement("tr");
+
   [i+1,s.roll,s.score+"/1"].forEach(v=>{
+
    const td=document.createElement("td");
    td.textContent=v;
    tr.appendChild(td);
+
   });
+
   tbody.appendChild(tr);
+
  });
+
 }
+
 renderLeaderboard();
- 
+
 </script>
 </body>
 </html>
