@@ -1,0 +1,219 @@
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>संस्कृत विभक्ति प्रतियोगिता</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700;800&display=swap');
+*{box-sizing:border-box}
+body{margin:0;background:#fff7e8;color:#382b1c;font-family:'Noto Sans Devanagari',sans-serif}
+header{text-align:center;background:linear-gradient(120deg,#a84c13,#e58b25,#176b45);color:white;padding:30px 15px;border-bottom:5px solid #e9c77b}
+header h1{margin:8px 0;font-size:29px}
+header p{margin:5px}
+.om{font-size:30px;color:#ffe7a5}
+main{max-width:800px;margin:25px auto;padding:0 14px}
+.card{background:white;padding:23px;border-radius:16px;margin-bottom:20px;border:1px solid #e9d5ae;box-shadow:0 5px 18px #53300e12}
+h2{color:#176b45;margin-top:0}
+input{width:100%;padding:13px;border:2px solid #e5d2ad;border-radius:9px;font-size:17px;font-family:inherit;margin:12px 0}
+button{background:#176b45;color:white;border:0;border-radius:9px;padding:12px 20px;font-size:16px;font-weight:bold;font-family:inherit;cursor:pointer}
+button:hover{opacity:.85}
+.hidden{display:none}
+.info{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:#176b45;font-weight:bold}
+.question{font-size:23px;font-weight:bold;line-height:1.8;margin:22px 0}
+.option{padding:14px;border:2px solid #e7d8bd;border-radius:9px;margin:10px 0;cursor:pointer;background:#fffdf7}
+.option.selected{background:#e5f4e9;border-color:#176b45}
+.option:hover{border-color:#d97706}
+.progress{height:9px;background:#eee2ce;border-radius:20px;margin:20px 0}
+.bar{height:100%;background:#d97706;width:0%;border-radius:20px}
+.result{font-size:45px;color:#176b45;font-weight:bold}
+table{width:100%;border-collapse:collapse;text-align:center}
+th,td{padding:11px 5px;border-bottom:1px solid #eadcc5}
+th{background:#176b45;color:white}
+tr:nth-child(even){background:#fff8e9}
+footer{text-align:center;background:#183d2b;color:white;padding:25px}
+.small{font-size:13px;color:#888}
+</style>
+</head>
+<body>
+
+<header>
+<div class="om">॥ ॐ ॥</div>
+<h1>संस्कृत ज्ञानम्</h1>
+<p>विभक्ति प्रतियोगिता</p>
+<p>कक्षा 8 | पञ्चमी – षष्ठी – सप्तमी</p>
+<p>41 विद्यार्थी | 41 प्रश्न | 1 अंक प्रति प्रश्न</p>
+</header>
+
+<main>
+<section class="card" id="start">
+<h2>🏛️ प्रतियोगिता में आपका स्वागत है</h2>
+<p>अपना रोल नंबर डालें। आपको उसी रोल नंबर का निर्धारित प्रश्न मिलेगा।</p>
+<label>रोल नंबर (1–41)</label>
+<input id="roll" type="number" min="1" max="41" placeholder="रोल नंबर लिखें">
+<button onclick="start()">प्रतियोगिता प्रारम्भ करें →</button>
+</section>
+
+<section class="card hidden" id="quiz">
+<div class="info">
+<span id="student"></span>
+<span>अधिकतम अंक: 1</span>
+</div>
+<div class="progress"><div class="bar" id="bar"></div></div>
+<p id="type" class="small"></p>
+<div class="question" id="question"></div>
+<div id="options"></div>
+<input id="fill" class="hidden" placeholder="उत्तर लिखें">
+<button onclick="submitAnswer()" style="width:100%;margin-top:20px">उत्तर जमा करें</button>
+</section>
+
+<section class="card hidden" id="result">
+<h2>🎉 परिणाम</h2>
+<p id="resultRoll"></p>
+<div class="result" id="marks"></div>
+<p id="message"></p>
+<button onclick="home()">होम पर जाएँ</button>
+</section>
+
+<section class="card" id="board">
+<h2>🏆 रोल नंबर अनुसार परिणाम</h2>
+<div style="overflow-x:auto">
+<table>
+<thead><tr><th>स्थान</th><th>रोल नंबर</th><th>प्राप्त अंक</th></tr></thead>
+<tbody id="scores"></tbody>
+</table>
+</div>
+<p class="small">परिणाम इसी ब्राउज़र में सुरक्षित रहेंगे।</p>
+</section>
+</main>
+
+<footer>
+<div style="font-size:23px">॥ विद्या ददाति विनयम् ॥</div>
+<p>भारतीय संस्कृति और संस्कृत भाषा को समर्पित 🇮🇳</p>
+</footer>
+
+<script>
+const questions=[
+{t:"mcq",q:"वृक्षात् ______ पतन्ति।",o:["फलानि","फलानाम्","फलेषु"],a:"फलानि"},
+{t:"fill",q:"ग्रामात् ______ आगच्छति। (बालक)",a:"बालकः"},
+{t:"mcq",q:"'रामस्य पुस्तकम्' में रामस्य कौन-सी विभक्ति है?",o:["पञ्चमी","षष्ठी","सप्तमी"],a:"षष्ठी"},
+{t:"mcq",q:"विद्यालये ______ पठन्ति।",o:["छात्राः","छात्रेण","छात्रात्"],a:"छात्राः"},
+{t:"fill",q:"वृक्षस्य ______ हरितानि सन्ति। (पर्ण)",a:"पर्णानि"},
+{t:"mcq",q:"'गृहात्' में कौन-सी विभक्ति है?",o:["पञ्चमी","षष्ठी","सप्तमी"],a:"पञ्चमी"},
+{t:"mcq",q:"'कक्षायाम्' में कौन-सी विभक्ति है?",o:["षष्ठी","सप्तमी","पञ्चमी"],a:"सप्तमी"},
+{t:"fill",q:"बालकः ______ निर्गच्छति। (गृह)",a:"गृहात्"},
+{t:"mcq",q:"'नद्याः जलम्' में नद्याः कौन-सी विभक्ति है?",o:["पञ्चमी","षष्ठी","सप्तमी"],a:"षष्ठी"},
+{t:"mcq",q:"उद्याने ______ क्रीडन्ति।",o:["बालकाः","बालकस्य","बालकात्"],a:"बालकाः"},
+{t:"fill",q:"रामस्य ______ सुन्दरम् अस्ति। (गृहम्)",a:"गृहम्"},
+{t:"mcq",q:"'पर्वतात्' कौन-सी विभक्ति है?",o:["पञ्चमी","षष्ठी","सप्तमी"],a:"पञ्चमी"},
+{t:"mcq",q:"'फलस्य' में कौन-सी विभक्ति है?",o:["सप्तमी","षष्ठी","पञ्चमी"],a:"षष्ठी"},
+{t:"fill",q:"बालकः ______ उपविशति। (आसन्द)",a:"आसन्दे"},
+{t:"mcq",q:"'वने' कौन-सी विभक्ति है?",o:["पञ्चमी","षष्ठी","सप्तमी"],a:"सप्तमी"},
+{t:"mcq",q:"वृक्षात् ______ पतति।",o:["पत्रम्","पत्रस्य","पत्रे"],a:"पत्रम्"},
+{t:"fill",q:"मम ______ नाम रामः। (मित्र)",a:"मित्रस्य"},
+{t:"mcq",q:"'गुरोः' कौन-सी विभक्ति है?",o:["पञ्चमी / षष्ठी","सप्तमी","केवल प्रथमा"],a:"पञ्चमी / षष्ठी"},
+{t:"mcq",q:"'नगरे' कौन-सी विभक्ति है?",o:["षष्ठी","सप्तमी","पञ्चमी"],a:"सप्तमी"},
+{t:"fill",q:"विद्यालयस्य ______ विशालः अस्ति। (प्राङ्गण)",a:"प्राङ्गणम्"},
+{t:"mcq",q:"'हिमालयात्' कौन-सी विभक्ति है?",o:["पञ्चमी","षष्ठी","सप्तमी"],a:"पञ्चमी"},
+{t:"mcq",q:"'बालिकायाः' कौन-सी विभक्ति हो सकती है?",o:["पञ्चमी / षष्ठी","सप्तमी","प्रथमा"],a:"पञ्चमी / षष्ठी"},
+{t:"fill",q:"कक्षायाम् ______ सन्ति। (छात्र)",a:"छात्राः"},
+{t:"mcq",q:"'पुस्तकालये' कौन-सी विभक्ति है?",o:["पञ्चमी","षष्ठी","सप्तमी"],a:"सप्तमी"},
+{t:"mcq",q:"'राज्ञः' कौन-सी विभक्ति हो सकती है?",o:["षष्ठी","सप्तमी","केवल द्वितीया"],a:"षष्ठी"},
+{t:"fill",q:"वृक्षात् ______ पतन्ति। (फल)",a:"फलानि"},
+{t:"mcq",q:"'ग्रामस्य' में कौन-सी विभक्ति है?",o:["पञ्चमी","षष्ठी","सप्तमी"],a:"षष्ठी"},
+{t:"mcq",q:"'नद्याम्' कौन-सी विभक्ति है?",o:["पञ्चमी","षष्ठी","सप्तमी"],a:"सप्तमी"},
+{t:"fill",q:"पर्वतात् ______ प्रवहति। (नदी)",a:"नदी"},
+{t:"mcq",q:"'समुद्रात्' कौन-सी विभक्ति है?",o:["पञ्चमी","षष्ठी","सप्तमी"],a:"पञ्चमी"},
+{t:"mcq",q:"'मातुः' कौन-सी विभक्ति है?",o:["षष्ठी","सप्तमी","पञ्चमी"],a:"षष्ठी"},
+{t:"fill",q:"उद्याने ______ विकसन्ति। (पुष्प)",a:"पुष्पाणि"},
+{t:"mcq",q:"'देवालये' कौन-सी विभक्ति है?",o:["पञ्चमी","षष्ठी","सप्तमी"],a:"सप्तमी"},
+{t:"mcq",q:"'गृहस्य' कौन-सी विभक्ति है?",o:["षष्ठी","पञ्चमी","सप्तमी"],a:"षष्ठी"},
+{t:"fill",q:"बालकः ______ आगच्छति। (नगर)",a:"नगरात्"},
+{t:"mcq",q:"'विद्यालयात्' में कौन-सी विभक्ति है?",o:["पञ्चमी","षष्ठी","सप्तमी"],a:"पञ्चमी"},
+{t:"mcq",q:"'उद्याने' का अर्थ क्या है?",o:["उद्यान से","उद्यान का","उद्यान में"],a:"उद्यान में"},
+{t:"fill",q:"भारतस्य ______ संस्कृतिः प्रसिद्धा अस्ति। (समृद्धि)",a:"समृद्धिः"},
+{t:"mcq",q:"'वृक्षेषु' कौन-सी विभक्ति है?",o:["पञ्चमी","षष्ठी","सप्तमी"],a:"सप्तमी"},
+{t:"mcq",q:"'रामात्' का अर्थ क्या हो सकता है?",o:["राम से","राम का","राम में"],a:"राम से"}
+];
+
+let roll=0,selected=null;
+const key="vibhakti41results";
+
+function getData(){return JSON.parse(localStorage.getItem(key)||"{}")}
+function updateBoard(){
+let data=getData();
+let rows=Array.from({length:41},(_,i)=>({r:i+1,s:data[i+1]??"-"}));
+rows.sort((a,b)=>(b.s==="-"?-1:b.s)-(a.s==="-"?-1:a.s) || a.r-b.r);
+document.getElementById("scores").innerHTML="";
+rows.forEach((x,i)=>{
+let tr=document.createElement("tr");
+[x.s==="-"?"-":i+1,x.r,x.s==="-"?"अभी नहीं दिया":x.s+" / 1"].forEach(v=>{
+let td=document.createElement("td");td.textContent=v;tr.appendChild(td);
+});
+document.getElementById("scores").appendChild(tr);
+});
+}
+
+function start(){
+roll=Number(document.getElementById("roll").value);
+if(!Number.isInteger(roll)||roll<1||roll>41){alert("रोल नंबर 1 से 41 के बीच होना चाहिए।");return}
+if(getData()[roll]!==undefined){alert("इस रोल नंबर का प्रश्न पहले ही जमा हो चुका है।");return}
+selected=null;
+document.getElementById("start").classList.add("hidden");
+document.getElementById("board").classList.add("hidden");
+document.getElementById("quiz").classList.remove("hidden");
+document.getElementById("student").textContent="रोल नंबर: "+roll;
+showQuestion();
+}
+
+function showQuestion(){
+let q=questions[roll-1];
+document.getElementById("bar").style.width=(roll/41*100)+"%";
+document.getElementById("type").textContent=q.t==="mcq"?"बहुविकल्पीय प्रश्न":"रिक्त स्थान भरिए";
+document.getElementById("question").textContent="प्रश्न "+roll+": "+q.q;
+let area=document.getElementById("options");
+let fill=document.getElementById("fill");
+area.innerHTML="";
+if(q.t==="mcq"){
+fill.classList.add("hidden");
+area.classList.remove("hidden");
+q.o.forEach(v=>{
+let div=document.createElement("div");
+div.className="option";div.textContent=v;
+div.onclick=()=>{selected=v;document.querySelectorAll(".option").forEach(x=>x.classList.remove("selected"));div.classList.add("selected")};
+area.appendChild(div);
+});
+}else{
+area.classList.add("hidden");
+fill.classList.remove("hidden");
+fill.value="";
+}
+}
+
+function submitAnswer(){
+let q=questions[roll-1];
+let ans=q.t==="mcq"?selected:document.getElementById("fill").value.trim();
+if(!ans){alert("कृपया उत्तर दीजिए।");return}
+let correct=ans.trim().replace(/\s+/g," ").toLowerCase()===q.a.trim().replace(/\s+/g," ").toLowerCase();
+let data=getData();
+data[roll]=correct?1:0;
+localStorage.setItem(key,JSON.stringify(data));
+document.getElementById("quiz").classList.add("hidden");
+document.getElementById("result").classList.remove("hidden");
+document.getElementById("resultRoll").textContent="रोल नंबर: "+roll;
+document.getElementById("marks").textContent=correct?"1 / 1":"0 / 1";
+document.getElementById("message").textContent=correct?"शाबाश! आपका उत्तर सही है।":"उत्तर सही नहीं था। सही उत्तर: "+q.a;
+updateBoard();
+}
+
+function home(){
+document.getElementById("result").classList.add("hidden");
+document.getElementById("start").classList.remove("hidden");
+document.getElementById("board").classList.remove("hidden");
+document.getElementById("roll").value="";
+}
+updateBoard();
+</script>
+</body>
+</html>
